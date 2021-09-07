@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/bloc/crud_sqflite/crud_sqflite_cubit.dart';
 import 'package:flutter_application_1/data/models/note_models.dart';
 import 'package:flutter_application_1/external/sizedbox_helper.dart';
+import 'package:flutter_application_1/presentation/pages/home_page.dart';
 import 'package:flutter_application_1/presentation/widgets/inputdecoration.dart';
 import 'package:flutter_application_1/presentation/widgets/validation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,11 +25,14 @@ class _UpdateState extends State<Update> {
     super.initState();
 
     title = TextEditingController(text: widget.note!.title);
+
     desc = TextEditingController(text: widget.note!.desc);
   }
 
   @override
   Widget build(BuildContext context) {
+    CrudSqfliteCubit crudSqfliteCubit =
+        BlocProvider.of<CrudSqfliteCubit>(context);
     return Scaffold(
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 30),
@@ -47,12 +51,12 @@ class _UpdateState extends State<Update> {
             BlocListener<CrudSqfliteCubit, CrudSqfliteState>(
               listener: (context, state) {
                 if (state is UpdateSqfliteLoading) {
-                  print('laodig');
                 } else if (state is UpdateSqfliteSuccess) {
-                  print('succcess');
-                } else if (state is UpdateSqfliteFailed) {
-                  print('failed');
-                }
+                  crudSqfliteCubit.fetchNote();
+                  Navigator.push(context, MaterialPageRoute(builder: (c){
+                    return HomePage();
+                  }));
+                } else if (state is UpdateSqfliteFailed) {}
               },
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
@@ -62,11 +66,8 @@ class _UpdateState extends State<Update> {
                     // primary: isFormValid ? null : Colors.grey.shade700,
                   ),
                   onPressed: () {
-                    CrudSqfliteCubit crudSqfliteCubit =
-                        BlocProvider.of<CrudSqfliteCubit>(context);
-
                     crudSqfliteCubit.updateNote(Note(
-                      // id: widget.note!.id,
+                      id: widget.note!.id,
                       title: '${title!.text}',
                       desc: '${desc!.text}',
                     ));
