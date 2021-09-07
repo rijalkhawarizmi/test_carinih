@@ -5,7 +5,6 @@ import 'package:flutter_application_1/external/sizedbox_helper.dart';
 import 'package:flutter_application_1/presentation/pages/crud_local_page/page/home.dart';
 import 'package:flutter_application_1/presentation/pages/login_page.dart';
 import 'package:flutter_application_1/presentation/pages/random_user_page.dart';
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomePage extends StatelessWidget {
