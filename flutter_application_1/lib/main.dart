@@ -9,7 +9,7 @@ import 'package:flutter_application_1/presentation/pages/root.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
-  //mainn
+  //mainn kelereng
   runApp(MyApp());
 }
 
